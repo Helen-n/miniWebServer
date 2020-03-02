@@ -1,6 +1,6 @@
-//Ê¾Àı´úÂë1.0 http://www.cnblogs.com/feng-sc/p/5710724.html
+//ç¤ºä¾‹ä»£ç 1.0 http://www.cnblogs.com/feng-sc/p/5710724.html
 /*
- * shared_ptr »¥ÏàÒıÓÃ£¬µ¼ÖÂÄÚ´æĞ¹Â©£¬ptr_a£¬ptr_bÎŞ·¨ÊÍ·Å
+ * shared_ptr äº’ç›¸å¼•ç”¨ï¼Œå¯¼è‡´å†…å­˜æ³„æ¼ï¼Œptr_aï¼Œptr_bæ— æ³•é‡Šæ”¾
 */
 #include <memory>
 #include <iostream>
@@ -21,7 +21,7 @@ public:
 		std::cout << "~TestA()" << std::endl;
 	}
 private:
-	std::shared_ptr<TestB> m_TestB_Ptr; //TestBµÄÖÇÄÜÖ¸Õë
+	std::shared_ptr<TestB> m_TestB_Ptr; //TestBçš„æ™ºèƒ½æŒ‡é’ˆ
 };
 
 class TestB
@@ -40,7 +40,7 @@ public:
 	{
 		std::cout << "~TestB()" << std::endl;
 	}
-	std::shared_ptr<TestA> m_TestA_Ptr; //TestAµÄÖÇÄÜÖ¸Õë
+	std::shared_ptr<TestA> m_TestA_Ptr; //TestAçš„æ™ºèƒ½æŒ‡é’ˆ
 };
 
 
