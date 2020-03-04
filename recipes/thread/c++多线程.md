@@ -123,6 +123,15 @@ int   task_queue_t::comsume(task_t& task_){
    - 6.3.2 工作线程：线程池中实际执行的线程
    - 6.3.3 任务接口：尽管线程池大多数情况下是用来支持网络服务器，但是我们将线程执行的任务抽象出来，形成任务接口，从而是的线程池与具体的任务无关。
    - 6.3.4 任务队列：线程池的概念具体到实现则可能是队列，链表之类的数据结构，其中保存执行线程。
+   
+   ---
+   ### reference
+   [std::mutex](http://www.cplusplus.com/reference/mutex/mutex/)
+   [cppreference.com](cppreference.com)
+   [C++ 并发编程（五）：生产者 - 消费者](https://segmentfault.com/a/1190000006703543)
+   [C++ 多线程编程总结](https://www.oschina.net/question/28_53992)
+   [C++11 并发指南系列](https://www.cnblogs.com/haippy/p/3284540.html)
+   [【1】生产者-消费者模型的三种实现方式](https://www.cnblogs.com/twoheads/p/10137263.html)
 
 
 
