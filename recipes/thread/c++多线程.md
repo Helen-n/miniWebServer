@@ -30,7 +30,7 @@
 　　  - 循环等待条件：当发生死锁时，所等待的进程必定会形成一个环路（类似于死循环），造成永久阻塞。
 　　  - 破坏死锁一个条件即可避免死锁
 ### 3 原子变量
-    原子变量的意思就是单个最小的、不可分割的变量（例如一个int），原子操作则指单个极小的操作（例如一个自增操作）
+原子变量的意思就是单个最小的、不可分割的变量（例如一个int），原子操作则指单个极小的操作（例如一个自增操作）
 C++的原子类封装了这种数据对象，使多线程对原子变量的访问不会造成竞争。（可以利用原子类可实现无锁设计)，一般用于计数或者统计
 - 3.1 std::atomic_flag
   - 它是一个原子的布尔类型，可支持两种原子操作。(实际上mutex可用atomic_flag实现)
@@ -54,27 +54,27 @@ clear()：清除atomic_flag对象。
     - 如果缓冲区已经满了，则生产者线程阻塞；
     - 如果缓冲区为空，那么消费者线程阻塞
   
-```
-void task_queue_t::produce(const task_t& task_) {
-        lock_guard_t lock(m_mutex);
-        if (m_tasklist->empty()){//! 条件满足唤醒等待线程
-            m_cond.signal();
+    ```
+    void task_queue_t::produce(const task_t& task_) {
+           lock_guard_t lock(m_mutex);
+           if (m_tasklist->empty()){//! 条件满足唤醒等待线程
+              m_cond.signal();
+          }
+          m_tasklist->push_back(task_);
+      }
+      int   task_queue_t::comsume(task_t& task_){
+          lock_guard_t lock(m_mutex);
+          while (m_tasklist->empty())//! 当没有作业时，就等待直到条件满足被唤醒{
+              if (false == m_flag){
+                  return -1;
+              }
+              m_cond.wait();
+          }
+          task_ = m_tasklist->front();
+          m_tasklist->pop_front();
+          return 0;
         }
-        m_tasklist->push_back(task_);
-    }
-int   task_queue_t::comsume(task_t& task_){
-        lock_guard_t lock(m_mutex);
-        while (m_tasklist->empty())//! 当没有作业时，就等待直到条件满足被唤醒{
-            if (false == m_flag){
-                return -1;
-            }
-            m_cond.wait();
-        }
-        task_ = m_tasklist->front();
-        m_tasklist->pop_front();
-        return 0;
-}
-```
+    ```
 - 5.2 任务列队使用技巧
   - 5.2.1 IO与逻辑分离
     - 比如网络游戏服务器程序中，网络模块收到消息包，投递给逻辑层后立即返回，继续接受下一个消息包。逻辑线程在一个没有io操作的环境下运行，以保障实时性。
