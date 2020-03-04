@@ -126,12 +126,12 @@ int   task_queue_t::comsume(task_t& task_){
    
    ---
    ### reference
-   [std::mutex](http://www.cplusplus.com/reference/mutex/mutex/)
-   [cppreference.com](cppreference.com)
-   [C++ 并发编程（五）：生产者 - 消费者](https://segmentfault.com/a/1190000006703543)
-   [C++ 多线程编程总结](https://www.oschina.net/question/28_53992)
-   [C++11 并发指南系列](https://www.cnblogs.com/haippy/p/3284540.html)
-   [【1】生产者-消费者模型的三种实现方式](https://www.cnblogs.com/twoheads/p/10137263.html)
+   [std::mutex](http://www.cplusplus.com/reference/mutex/mutex/)   
+   [cppreference.com](cppreference.com)   
+   [C++ 并发编程（五）：生产者 - 消费者](https://segmentfault.com/a/1190000006703543)   
+   [C++ 多线程编程总结](https://www.oschina.net/question/28_53992)   
+   [C++11 并发指南系列](https://www.cnblogs.com/haippy/p/3284540.html)   
+   [【1】生产者-消费者模型的三种实现方式](https://www.cnblogs.com/twoheads/p/10137263.html)   
 
 
 
