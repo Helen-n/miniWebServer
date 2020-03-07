@@ -28,15 +28,15 @@ public:
 		shutdown();
 	}
 
-	// Ìá½»Ò»¸öÈÎÎñ
+	// æäº¤ä¸€ä¸ªä»»åŠ¡
 	template<class F, class... Args>
 	auto commit(F&& f, Args&&... args) -> std::future<decltype(f(args...))>
 	{
-		using ResType = decltype(f(args...));// º¯ÊıfµÄ·µ»ØÖµÀàĞÍ
+		using ResType = decltype(f(args...));// å‡½æ•°fçš„è¿”å›å€¼ç±»å‹
 
 		auto task = std::make_shared<std::packaged_task<ResType()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
 		{
-			// Ìí¼ÓÈÎÎñµ½¶ÓÁĞ
+			// æ·»åŠ ä»»åŠ¡åˆ°é˜Ÿåˆ—
 			std::lock_guard<std::mutex> lock(_taskMutex);
 
 			_tasks.emplace([task]()
@@ -45,31 +45,31 @@ public:
 			});
 		}
 
-		_taskCV.notify_all(); //»½ĞÑÏß³ÌÖ´ĞĞ
+		_taskCV.notify_all(); //å”¤é†’çº¿ç¨‹æ‰§è¡Œ
 
 		std::future<ResType> future = task->get_future();
 		return future;
 	}
 
 private:
-	// »ñÈ¡Ò»¸ö´ıÖ´ĞĞµÄtask
+	// è·å–ä¸€ä¸ªå¾…æ‰§è¡Œçš„task
 	Task get_one_task()
 	{
 		std::unique_lock<std::mutex> lock(_taskMutex);
 
-		_taskCV.wait(lock, [this]() { return !_tasks.empty() || _stop.load(); }); // waitÖ±µ½ÓĞtask
+		_taskCV.wait(lock, [this]() { return !_tasks.empty() || _stop.load(); }); // waitç›´åˆ°æœ‰task
 
 		if (_stop.load())
 		{
 			return nullptr;
 		}
 
-		Task task{ std::move(_tasks.front()) }; // È¡Ò»¸ötask
+		Task task{ std::move(_tasks.front()) }; // å–ä¸€ä¸ªtask
 		_tasks.pop();
 		return task;
 	}
 
-	// ÈÎÎñµ÷¶È
+	// ä»»åŠ¡è°ƒåº¦
 	void schedual()
 	{
 		while (!_stop.load())
@@ -81,7 +81,7 @@ private:
 		}
 	}
 
-	// ¹Ø±ÕÏß³Ì³Ø£¬²¢µÈ´ı½áÊø
+	// å…³é—­çº¿ç¨‹æ± ï¼Œå¹¶ç­‰å¾…ç»“æŸ
 	void shutdown()
 	{
 		this->_stop.store(true);
@@ -89,22 +89,22 @@ private:
 
 		for (std::thread &thrd : _pool)
 		{
-			thrd.join();// µÈ´ıÈÎÎñ½áÊø£¬ Ç°Ìá£ºÏß³ÌÒ»¶¨»áÖ´ĞĞÍê
+			thrd.join();// ç­‰å¾…ä»»åŠ¡ç»“æŸï¼Œ å‰æï¼šçº¿ç¨‹ä¸€å®šä¼šæ‰§è¡Œå®Œ
 		}
 	}
 
 private:
-	// Ïß³Ì³Ø
+	// çº¿ç¨‹æ± 
 	std::vector<std::thread> _pool;
 
-	// ÈÎÎñ¶ÓÁĞ
+	// ä»»åŠ¡é˜Ÿåˆ—
 	std::queue<Task> _tasks;
 
-	// Í¬²½
+	// åŒæ­¥
 	std::mutex _taskMutex;
 	std::condition_variable _taskCV;
 
-	// ÊÇ·ñ¹Ø±ÕÌá½»
+	// æ˜¯å¦å…³é—­æäº¤
 	std::atomic<bool> _stop;
 };
 
