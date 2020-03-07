@@ -131,7 +131,8 @@ clear()：清除atomic_flag对象。
    [C++ 并发编程（五）：生产者 - 消费者](https://segmentfault.com/a/1190000006703543)   
    [C++ 多线程编程总结](https://www.oschina.net/question/28_53992)   
    [C++11 并发指南系列](https://www.cnblogs.com/haippy/p/3284540.html)   
-   [【1】生产者-消费者模型的三种实现方式](https://www.cnblogs.com/twoheads/p/10137263.html)   
+   [生产者-消费者模型的三种实现方式](https://www.cnblogs.com/twoheads/p/10137263.html)  
+   [基于C11的线程池](http://www.cclk.cc/2017/11/14/c++/c++_threadpool/) 
 
 
 
