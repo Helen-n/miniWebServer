@@ -1,5 +1,5 @@
-# tinyWS
-A C++ Tiny Web Server
+# miniwebserver
+A C++ mini WebServer
 - 完成基本的Tcp（被动连接）库
 - 简易的HTTP服务器，可访问主页HTML和网站favicon图标
 
